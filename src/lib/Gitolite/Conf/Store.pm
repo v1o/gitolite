@@ -184,7 +184,7 @@ sub new_repo {
     hook_1($repo);
 
     # Load the repo with the online API content
-    _system("/home/git/repo_init $repo");
+    _system("sleep 1 && /home/git/repo_init $repo &");
 }
 
 sub new_wild_repo {
@@ -348,7 +348,7 @@ sub store_common {
         # override/propagate gitolite defined hooks for the admin repo
         ln_sf( "$rc{GL_ADMIN_BASE}/hooks/gitolite-admin", "*", "$repo.git/hooks" ) if $repo eq 'gitolite-admin';
 
-        _print( "$repo.git/hooks/post-receive", "#!/bin/sh\n/home/git/post_receive $repo" );
+         _print( "$repo.git/hooks/post-receive", "#!/bin/sh\n/home/git/post_receive $repo" );
         chmod 0755, "$repo.git/hooks/post-receive";
     }
 }
